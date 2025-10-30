@@ -208,3 +208,15 @@ jobs:
         scripts/build.sh ${{ matrix.mvn-profile }}
 
         scripts/run-ldbc-sample2graphar.sh
+
+    - name: Run SNB GraphAr Bridge example (SF0.003)
+      if: ${{ matrix.mvn-profile == 'datasources-35' }}
+      working-directory: maven-projects/spark
+      run: |
+        export JAVA_HOME=${JAVA_HOME_11_X64}
+        export SPARK_HOME="${HOME}/${{ matrix.spark-hadoop }}"
+        export PATH="${SPARK_HOME}/bin":"${PATH}"
+
+        scripts/build.sh ${{ matrix.mvn-profile }}
+
+        scripts/run-snb-graphar-bridge.sh 0.003
